@@ -1,0 +1,18 @@
+{
+  "name": "zoom",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:jquery": "echo \"(function($) {\n\" > zoomper.jquery.js && cat src/zoomper.js >> zoomper.jquery.js && echo \"\n\n$.fn.zoomper = function() { return this.each(function() { zoomper(this); }); }\" >> zoomper.jquery.js && echo \"\n})(jQuery);\" >> zoomper.jquery.js",
+    "build:jquerymin": "npm run build:jquery && uglifyjs zoomper.jquery.js -c -m -o zoomper.jquery.min.js",
+    "build:zoomper": "echo \"(function() {\n\" > zoomper.js && cat src/zoomper.js >> zoomper.js && echo \"\n\n})();\" >> zoomper.js",
+    "build:zoompermin": "npm run build:zoomper && uglifyjs zoomper.js -c -m -o zoomper.min.js",
+    "build": "npm run build:zoompermin && npm run build:jquerymin"
+  },
+  "author": "Cooper Reid",
+  "license": "MIT",
+  "dependencies": {
+    "uglify-js": "^2.6.1"
+  }
+}
