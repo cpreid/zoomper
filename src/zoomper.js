@@ -15,6 +15,7 @@ var Zoomper = function(elt, small, large) {
     this.frameSize = {'width': parseInt(elt.style.width), 'height': parseInt(elt.style.height)};
     this.mode = 'out';
     this.cursorStates = {'in': 'zoom-out', 'out': 'zoom-in'};
+    this.initComplete = false;
 }
 Zoomper.prototype = {
     positionZoom: function(evt) {
@@ -49,15 +50,28 @@ Zoomper.prototype = {
         this.mode = this.mode === 'in' ? 'out' : 'in';
         this.zoomState(this.mode);              
     },
+    loadImagesCB: function(cb) {
+        var toLoad = [this.smallImg, this.largeImg],
+            loaded = 0,
+            checkComplete = function() {
+                loaded++;
+                if(toLoad.length === loaded) cb();
+            }
+        for(var i = 0; i < toLoad.length; i++) {
+            var img = new Image;
+            img.onload = checkComplete;
+            img.src = toLoad[i];
+        }
+    },
     init: function() {
         var _this = this;
-        this.elt.style.backgroundRepeat = 'no-repeat';
-        this.zoomState('out');
-        this.elt.addEventListener('click', function(evt) { 
+        _this.elt.style.backgroundRepeat = 'no-repeat';
+        _this.zoomState('out');
+        _this.elt.addEventListener('click', function(evt) { 
             _this.zoomStateToggle(); 
             _this.positionZoom(evt);
-        });
-        return this;
+        });           
+        return _this;
     }
 }
 
