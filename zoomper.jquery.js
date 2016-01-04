@@ -33,13 +33,12 @@ Zoomper.prototype = {
     },
     unlistenHover: function() {
         this.elt.style.backgroundPosition = 'center center';
-        this.elt.removeEventListener('mousemove');
+        // this.elt.removeEventListener('mousemove'); line 28 instead
     },
     zoomState: function(mode) { // 'in' || 'out'
         if(mode === 'in') {
             this.elt.style.backgroundImage = 'url(' + this.largeImg + ')';
             this.listenHover();
-            this.elt.style.backgroundPosition = '200px 20px';
             this.elt.style.cursor = this.cursorStates.in;
         }
         else {
