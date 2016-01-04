@@ -1,3 +1,5 @@
+> A jQuery Plugin for zooming on images. Good for showcasing products
+
 ## Installation
 ```
 $ git clone git@github.com:cpreid/zoomper.git
